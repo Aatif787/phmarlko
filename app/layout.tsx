@@ -6,6 +6,7 @@ import { FloatingWhatsApp } from "../components/FloatingWhatsApp";
 import { Navbar } from "../components/Navbar";
 import { CustomCursor } from "../components/CustomCursor";
 import { Footer } from "../components/Footer";
+import { SmoothScroll } from "../components/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout(props: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="min-h-screen cursor-none">
+        <SmoothScroll />
         <div className="relative flex min-h-screen flex-col">
           <CustomCursor />
           <Navbar />
