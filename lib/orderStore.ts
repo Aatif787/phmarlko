@@ -28,7 +28,7 @@ async function readAllOrders(): Promise<OrderRecord[]> {
     await fs.mkdir(dataDir, { recursive: true });
     const content = await fs.readFile(dataFile, "utf8");
     return JSON.parse(content) as OrderRecord[];
-  } catch (error) {
+  } catch {
     // If file doesn't exist or we can't read/write (Vercel), return empty array
     return [];
   }
