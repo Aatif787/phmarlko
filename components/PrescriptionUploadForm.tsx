@@ -39,32 +39,33 @@ export function PrescriptionUploadForm() {
                   event.preventDefault();
                   setStep("uploading");
 
-                  const form = event.currentTarget;
-                  const formData = new FormData(form);
+                  try {
+                    const form = event.currentTarget;
+                    const formData = new FormData(form);
 
-                  const response = await fetch("/api/prescriptions", {
-                    method: "POST",
-                    body: formData
-                  });
+                    const response = await fetch("/api/prescriptions", {
+                      method: "POST",
+                      body: formData
+                    });
 
-                  if (!response.ok) {
-                    throw new Error("Server responded with error");
+                    if (!response.ok) {
+                      throw new Error("Server responded with error");
+                    }
+
+                    const data = (await response.json()) as { orderId?: string };
+                    setOrderId(data.orderId ?? null);
+                    setStep("success");
+                    
+                    // Optional: Auto-redirect or just show the button
+                    if (data.orderId) {
+                      // We don't auto-open WhatsApp here to let the user see the success message first
+                      // and then click the button deliberately.
+                    }
+                  } catch (error) {
+                    console.error("Upload failed", error);
+                    alert("Something went wrong. Please try again or contact us on WhatsApp.");
+                    setStep("form");
                   }
-
-                  const data = (await response.json()) as { orderId?: string };
-                  setOrderId(data.orderId ?? null);
-                  setStep("success");
-                  
-                  // Optional: Auto-redirect or just show the button
-                  if (data.orderId) {
-                    // We don't auto-open WhatsApp here to let the user see the success message first
-                    // and then click the button deliberately.
-                  }
-                } catch (error) {
-                  console.error("Upload failed", error);
-                  alert("Something went wrong. Please try again or contact us on WhatsApp.");
-                  setStep("form");
-                }
                 }}
               >
                 <div className="grid gap-6 sm:grid-cols-2">
