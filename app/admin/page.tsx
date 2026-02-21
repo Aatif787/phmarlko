@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import type { Status } from "@/components/OrderTrackingTimeline";
 import { statuses } from "@/components/OrderTrackingTimeline";
@@ -11,6 +11,7 @@ interface AdminOrder {
   address: string;
   deliveryTime: string;
   notes?: string;
+  prescriptionPath?: string;
   status: Status;
   createdAt: string;
 }
@@ -46,7 +47,7 @@ export default function AdminPage() {
       setOrders(data);
       setLoading(false);
       return true;
-    } catch (err) {
+    } catch {
       setError("Network error occurred");
       setLoading(false);
       return false;
@@ -186,7 +187,6 @@ export default function AdminPage() {
                         </span>
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ring-1 ring-inset ${
                           order.status === "Delivered" ? "bg-green-50 text-green-700 ring-green-600/20" :
-                          order.status === "Cancelled" ? "bg-red-50 text-red-700 ring-red-600/20" :
                           "bg-blue-50 text-blue-700 ring-blue-700/10"
                         }`}>
                           {order.status}
