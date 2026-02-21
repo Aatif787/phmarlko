@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: medexpress
+    env: docker
+    region: ohio # Change this to your preferred region (e.g., oregon, frankfurt, singapore)
+    plan: free # or starter, standard, etc.
+    branch: main # or master, depending on your default branch
+    envVars:
+      - key: NODE_ENV
+        value: production
