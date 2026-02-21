@@ -48,8 +48,7 @@ export function PrescriptionUploadForm() {
                   });
 
                   if (!response.ok) {
-                    setStep("form");
-                    return;
+                    throw new Error("Server responded with error");
                   }
 
                   const data = (await response.json()) as { orderId?: string };
@@ -58,9 +57,14 @@ export function PrescriptionUploadForm() {
                   
                   // Optional: Auto-redirect or just show the button
                   if (data.orderId) {
-                    const text = `Hi MedExpress, I just uploaded a prescription. Order ID: ${data.orderId}. Please confirm availability.`;
-                    window.open(`https://wa.me/918601439557?text=${encodeURIComponent(text)}`, '_blank');
+                    // We don't auto-open WhatsApp here to let the user see the success message first
+                    // and then click the button deliberately.
                   }
+                } catch (error) {
+                  console.error("Upload failed", error);
+                  alert("Something went wrong. Please try again or contact us on WhatsApp.");
+                  setStep("form");
+                }
                 }}
               >
                 <div className="grid gap-6 sm:grid-cols-2">
@@ -176,15 +180,33 @@ export function PrescriptionUploadForm() {
                 
                 <div className="pt-6 border-t border-slate-200/60">
                   {step === "success" ? (
-                    <a
-                      href={`https://wa.me/918601439557?text=${encodeURIComponent(`Hi MedExpress, I just uploaded a prescription. Order ID: ${orderId}. Please confirm availability.`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="button-primary w-full text-center flex items-center justify-center gap-2 animate-bounce-slow"
-                    >
-                      <span>Open WhatsApp to Confirm</span>
-                      <span className="bg-white/20 rounded-full px-2 py-0.5 text-[10px]">{orderId}</span>
-                    </a>
+                    <div className="space-y-4">
+                      <div className="text-center">
+                        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600 mb-3">
+                          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <h3 className="text-lg font-semibold text-slate-900">Order Received!</h3>
+                        <p className="text-sm text-slate-500 mt-1">
+                          Please verify your prescription on WhatsApp to confirm the order.
+                        </p>
+                      </div>
+                      
+                      <a
+                        href={`https://wa.me/918601439557?text=${encodeURIComponent(`Hi MedExpress, I placed order ${orderId}. Please check my prescription availability.`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="button-primary w-full text-center flex items-center justify-center gap-2 animate-bounce-slow"
+                      >
+                        <span>Confirm on WhatsApp</span>
+                        <span className="bg-white/20 rounded-full px-2 py-0.5 text-[10px]">{orderId}</span>
+                      </a>
+                      
+                      <p className="text-[10px] text-center text-slate-400">
+                        If the upload failed, you can send the photo directly in the chat.
+                      </p>
+                    </div>
                   ) : (
                     <button
                       type="submit"

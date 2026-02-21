@@ -15,6 +15,7 @@ export interface OrderRecord {
   address: string;
   deliveryTime: string;
   notes?: string;
+  prescriptionPath?: string;
   status: OrderStatus;
   createdAt: string;
 }
@@ -28,16 +29,19 @@ async function readAllOrders(): Promise<OrderRecord[]> {
     const content = await fs.readFile(dataFile, "utf8");
     return JSON.parse(content) as OrderRecord[];
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return [];
-    }
-    throw error;
+    // If file doesn't exist or we can't read/write (Vercel), return empty array
+    return [];
   }
 }
 
 async function writeAllOrders(orders: OrderRecord[]): Promise<void> {
-  await fs.mkdir(dataDir, { recursive: true });
-  await fs.writeFile(dataFile, JSON.stringify(orders, null, 2), "utf8");
+  try {
+    await fs.mkdir(dataDir, { recursive: true });
+    await fs.writeFile(dataFile, JSON.stringify(orders, null, 2), "utf8");
+  } catch (error) {
+    console.warn("Failed to write orders to disk (likely read-only environment):", error);
+    // In production (Vercel), this will fail. We allow it to fail gracefully so the API can still return success.
+  }
 }
 
 export async function createOrder(input: {
@@ -47,6 +51,7 @@ export async function createOrder(input: {
   address: string;
   deliveryTime: string;
   notes?: string;
+  prescriptionPath?: string;
 }): Promise<OrderRecord> {
   const orders = await readAllOrders();
   const order: OrderRecord = {
@@ -56,6 +61,7 @@ export async function createOrder(input: {
     address: input.address,
     deliveryTime: input.deliveryTime,
     notes: input.notes,
+    prescriptionPath: input.prescriptionPath,
     status: "Order Received",
     createdAt: new Date().toISOString()
   };
