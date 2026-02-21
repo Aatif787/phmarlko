@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { findOrder, updateOrderStatus } from "@/lib/orderStore";
+import { findOrder, updateOrderStatus, deleteOrder } from "@/lib/orderStore";
 import type { OrderStatus } from "@/lib/orderStore";
 
 export async function GET(
@@ -33,4 +33,21 @@ export async function PATCH(
   }
 
   return NextResponse.json(updated);
+}
+
+export async function DELETE(
+  request: Request,
+  context: { params: { orderId: string } }
+) {
+  const adminKey = process.env.ADMIN_KEY;
+  if (adminKey && request.headers.get("x-admin-key") !== adminKey) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const deleted = await deleteOrder(context.params.orderId ?? "");
+  if (!deleted) {
+    return NextResponse.json({ error: "Order not found" }, { status: 404 });
+  }
+
+  return NextResponse.json({ success: true });
 }

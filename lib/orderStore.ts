@@ -93,3 +93,14 @@ export async function updateOrderStatus(
   return orders[index];
 }
 
+export async function deleteOrder(orderId: string): Promise<boolean> {
+  const orders = await readAllOrders();
+  const index = orders.findIndex((order) => order.orderId === orderId);
+  if (index === -1) {
+    return false;
+  }
+  orders.splice(index, 1);
+  await writeAllOrders(orders);
+  return true;
+}
+
