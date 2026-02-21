@@ -8,6 +8,7 @@ type Step = "form" | "uploading" | "success";
 export function PrescriptionUploadForm() {
   const [step, setStep] = useState<Step>("form");
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
 
   return (
     <section
@@ -134,9 +135,26 @@ export function PrescriptionUploadForm() {
                         Click to Upload
                       </span>
                       <span className="mt-1 text-[10px] text-slate-500 font-medium">
-                        Photo or PDF (Max 10MB)
+                        {fileName ? (
+                          <span className="text-med-primary font-bold">{fileName}</span>
+                        ) : (
+                          "Photo or PDF (Max 10MB)"
+                        )}
                       </span>
-                      <input id="prescription" name="prescription" type="file" accept="image/*,application/pdf" className="sr-only" required />
+                      <input 
+                        id="prescription" 
+                        name="prescription" 
+                        type="file" 
+                        accept="image/*,application/pdf" 
+                        className="sr-only" 
+                        required 
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setFileName(file.name);
+                          }
+                        }}
+                      />
                     </label>
                   </div>
                   <div>
@@ -192,6 +210,12 @@ export function PrescriptionUploadForm() {
                         <p className="text-sm text-slate-500 mt-1">
                           Please verify your prescription on WhatsApp to confirm the order.
                         </p>
+                        {fileName && (
+                          <div className="mt-3 text-xs bg-slate-50 border border-slate-200 rounded-lg p-2 inline-block">
+                            <span className="text-slate-500">Uploaded: </span>
+                            <span className="font-medium text-slate-800">{fileName}</span>
+                          </div>
+                        )}
                       </div>
                       
                       <a
