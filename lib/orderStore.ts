@@ -27,7 +27,11 @@ const dataFile = path.join(dataDir, "orders.json");
 
 // Helper to check if Supabase is configured
 function isSupabaseConfigured() {
-  return !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const isConfigured = !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!isConfigured && process.env.NODE_ENV === 'production') {
+    console.error("Supabase environment variables are missing in production! Falling back to ephemeral file system.");
+  }
+  return isConfigured;
 }
 
 // --- FILE SYSTEM FALLBACKS (Legacy) ---
