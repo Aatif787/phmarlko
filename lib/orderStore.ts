@@ -27,9 +27,18 @@ const dataFile = path.join(dataDir, "orders.json");
 
 // Helper to check if Supabase is configured
 function isSupabaseConfigured() {
-  const isConfigured = !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  const isConfigured = !!url && !!key;
+  
   if (!isConfigured && process.env.NODE_ENV === 'production') {
-    console.error("Supabase environment variables are missing in production! Falling back to ephemeral file system.");
+    const missing = [];
+    if (!url) missing.push("NEXT_PUBLIC_SUPABASE_URL");
+    if (!key) missing.push("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+    
+    console.error(`[CRITICAL] Supabase connection failed. Missing Environment Variables: ${missing.join(", ")}`);
+    console.error("ACTION REQUIRED: Go to Vercel Dashboard -> Settings -> Environment Variables and add these keys.");
   }
   return isConfigured;
 }
