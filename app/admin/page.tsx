@@ -99,7 +99,11 @@ export default function AdminPage() {
       alert("Failed to delete order");
       return;
     }
-    await fetchOrders(adminKey);
+    // Optimistic update: remove order from UI immediately
+    setOrders((prevOrders) => prevOrders.filter((o) => o.orderId !== orderId));
+    
+    // Fetch latest data in background just in case
+    fetchOrders(adminKey);
   }
 
   if (!isAuthenticated) {
