@@ -1,7 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import connectToDatabase from "@/lib/mongodb";
-import Order, { IOrder } from "@/models/Order";
+import { supabase } from "@/lib/supabase";
 
 export type OrderStatus =
   | "Order Received"
@@ -26,10 +25,9 @@ export interface OrderRecord {
 const dataDir = process.env.DATA_DIR || path.join(process.cwd(), "data");
 const dataFile = path.join(dataDir, "orders.json");
 
-// Helper to check if we are using MongoDB
-async function shouldUseMongoDB() {
-  const db = await connectToDatabase();
-  return !!db;
+// Helper to check if Supabase is configured
+function isSupabaseConfigured() {
+  return !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 }
 
 // --- FILE SYSTEM FALLBACKS (Legacy) ---
@@ -62,26 +60,29 @@ export async function createOrder(input: {
   notes?: string;
   prescriptionPath?: string;
 }): Promise<OrderRecord> {
-  const useDB = await shouldUseMongoDB();
-
-  if (useDB) {
-    await connectToDatabase();
-    const newOrder = await Order.create({
-      ...input,
+  if (isSupabaseConfigured()) {
+    const newOrder = {
+      orderId: input.orderId,
+      fullName: input.fullName,
+      mobile: input.mobile,
+      address: input.address,
+      deliveryTime: input.deliveryTime,
+      notes: input.notes,
+      prescriptionPath: input.prescriptionPath,
       status: "Order Received",
       createdAt: new Date().toISOString()
-    });
-    return {
-      orderId: newOrder.orderId,
-      fullName: newOrder.fullName,
-      mobile: newOrder.mobile,
-      address: newOrder.address,
-      deliveryTime: newOrder.deliveryTime,
-      notes: newOrder.notes,
-      prescriptionPath: newOrder.prescriptionPath,
-      status: newOrder.status as OrderStatus,
-      createdAt: newOrder.createdAt
     };
+
+    const { error } = await supabase
+      .from('orders')
+      .insert([newOrder]);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      throw new Error("Failed to create order in Supabase");
+    }
+
+    return newOrder as OrderRecord;
   } else {
     // Fallback to file
     const orders = await readAllOrdersFile();
@@ -97,45 +98,33 @@ export async function createOrder(input: {
 }
 
 export async function listOrders(): Promise<OrderRecord[]> {
-  const useDB = await shouldUseMongoDB();
-  
-  if (useDB) {
-    await connectToDatabase();
-    const orders = await Order.find({}).sort({ createdAt: -1 }).lean();
-    return orders.map(o => ({
-      orderId: o.orderId,
-      fullName: o.fullName,
-      mobile: o.mobile,
-      address: o.address,
-      deliveryTime: o.deliveryTime,
-      notes: o.notes,
-      prescriptionPath: o.prescriptionPath,
-      status: o.status as OrderStatus,
-      createdAt: o.createdAt
-    }));
+  if (isSupabaseConfigured()) {
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*')
+      .order('createdAt', { ascending: false });
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return [];
+    }
+
+    return data as OrderRecord[];
   } else {
     return readAllOrdersFile();
   }
 }
 
 export async function findOrder(orderId: string): Promise<OrderRecord | undefined> {
-  const useDB = await shouldUseMongoDB();
+  if (isSupabaseConfigured()) {
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*')
+      .eq('orderId', orderId)
+      .single();
 
-  if (useDB) {
-    await connectToDatabase();
-    const order = await Order.findOne({ orderId }).lean();
-    if (!order) return undefined;
-    return {
-      orderId: order.orderId,
-      fullName: order.fullName,
-      mobile: order.mobile,
-      address: order.address,
-      deliveryTime: order.deliveryTime,
-      notes: order.notes,
-      prescriptionPath: order.prescriptionPath,
-      status: order.status as OrderStatus,
-      createdAt: order.createdAt
-    };
+    if (error || !data) return undefined;
+    return data as OrderRecord;
   } else {
     const orders = await readAllOrdersFile();
     return orders.find((order) => order.orderId === orderId);
@@ -146,29 +135,16 @@ export async function updateOrderStatus(
   orderId: string,
   status: OrderStatus
 ): Promise<OrderRecord | undefined> {
-  const useDB = await shouldUseMongoDB();
+  if (isSupabaseConfigured()) {
+    const { data, error } = await supabase
+      .from('orders')
+      .update({ status })
+      .eq('orderId', orderId)
+      .select()
+      .single();
 
-  if (useDB) {
-    await connectToDatabase();
-    const updated = await Order.findOneAndUpdate(
-      { orderId },
-      { status },
-      { new: true }
-    ).lean();
-    
-    if (!updated) return undefined;
-    
-    return {
-      orderId: updated.orderId,
-      fullName: updated.fullName,
-      mobile: updated.mobile,
-      address: updated.address,
-      deliveryTime: updated.deliveryTime,
-      notes: updated.notes,
-      prescriptionPath: updated.prescriptionPath,
-      status: updated.status as OrderStatus,
-      createdAt: updated.createdAt
-    };
+    if (error || !data) return undefined;
+    return data as OrderRecord;
   } else {
     const orders = await readAllOrdersFile();
     const index = orders.findIndex((order) => order.orderId === orderId);
@@ -180,12 +156,13 @@ export async function updateOrderStatus(
 }
 
 export async function deleteOrder(orderId: string): Promise<boolean> {
-  const useDB = await shouldUseMongoDB();
+  if (isSupabaseConfigured()) {
+    const { error } = await supabase
+      .from('orders')
+      .delete()
+      .eq('orderId', orderId);
 
-  if (useDB) {
-    await connectToDatabase();
-    const result = await Order.deleteOne({ orderId });
-    return result.deletedCount > 0;
+    return !error;
   } else {
     const orders = await readAllOrdersFile();
     const index = orders.findIndex((order) => order.orderId === orderId);
