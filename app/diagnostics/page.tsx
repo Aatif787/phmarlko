@@ -2,7 +2,12 @@
 import { useEffect, useState } from "react";
 
 export default function DiagnosticsPage() {
-  const [status, setStatus] = useState<any>(null);
+  const [status, setStatus] = useState<{
+    NEXT_PUBLIC_SUPABASE_URL: boolean;
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: boolean;
+    NODE_ENV: string;
+    VERCEL: string;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
