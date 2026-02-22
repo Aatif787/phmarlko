@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { createOrder } from "@/lib/orderStore";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { supabase } from "@/lib/supabase";
 
 export async function POST(request: Request) {
   const formData = await request.formData();
@@ -20,23 +19,31 @@ export async function POST(request: Request) {
 
   if (file) {
     try {
-      const buffer = Buffer.from(await file.arrayBuffer());
       const filename = `${orderId}-${file.name.replace(/[^a-zA-Z0-9.-]/g, "_")}`;
       
-      // Use public/uploads for local development
-      // Note: This will fail on Vercel production (read-only fs), but that's expected.
-      // We catch the error so the order is still created.
-      const uploadDir = path.join(process.cwd(), "public", "uploads");
-      
-      // Ensure directory exists
-      await mkdir(uploadDir, { recursive: true });
-      
-      const filePath = path.join(uploadDir, filename);
-      await writeFile(filePath, buffer);
-      prescriptionPath = `/uploads/${filename}`;
+      // Upload to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('prescriptions')
+        .upload(filename, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        console.error("Supabase Storage Error:", error);
+        // Fallback: If bucket doesn't exist or other error, we log it but can't save the file
+        // We could throw an error, but let's try to create the order anyway
+      } else if (data) {
+        // Construct public URL
+        // Note: The bucket must be public for this to work
+        const { data: { publicUrl } } = supabase.storage
+          .from('prescriptions')
+          .getPublicUrl(filename);
+          
+        prescriptionPath = publicUrl;
+      }
     } catch (error) {
-      console.error("Error saving file (likely due to read-only environment):", error);
-      // Continue without saving file
+      console.error("Error uploading file:", error);
     }
   }
 
