@@ -170,9 +170,14 @@ export function Footer() {
           className="mt-16 border-t border-slate-800 pt-8 text-center"
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-xs text-slate-500">
-              © {new Date().getFullYear()} MedExpress. All rights reserved.
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-xs text-slate-500">
+                © {new Date().getFullYear()} MedExpress. All rights reserved.
+              </p>
+              <span className="rounded bg-emerald-900/40 px-1.5 py-0.5 text-[10px] font-medium text-emerald-400 border border-emerald-500/20">
+                v1.1.0-live
+              </span>
+            </div>
             <div className="flex gap-6 text-xs text-slate-500">
               <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms-and-conditions" className="hover:text-white transition-colors">Terms of Service</Link>
