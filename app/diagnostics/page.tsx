@@ -28,6 +28,7 @@ export default function DiagnosticsPage() {
 
   const isConfiguredEnv = status?.NEXT_PUBLIC_SUPABASE_URL && status?.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const isWorking = isConfiguredEnv || status?.USING_HARDCODED_FALLBACK;
+  const lastUpdated = "2026-02-24 19:30"; // Trigger new deploy
 
   return (
     <div className="min-h-screen bg-slate-50 p-8 pt-24 font-sans">
