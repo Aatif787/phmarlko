@@ -21,29 +21,15 @@ export interface OrderRecord {
   createdAt: string;
 }
 
-// Fallback mechanism: Local file storage (Only for local dev without DB)
+// Helper to check if Supabase is configured (always true now due to hardcoded defaults in lib/supabase.ts)
+function isSupabaseConfigured() {
+  return true;
+}
+
+// --- FILE SYSTEM FALLBACKS (Only for local dev if needed) ---
 const dataDir = process.env.DATA_DIR || path.join(process.cwd(), "data");
 const dataFile = path.join(dataDir, "orders.json");
 
-// Helper to check if Supabase is configured
-function isSupabaseConfigured() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  
-  const isConfigured = !!url && !!key;
-  
-  if (!isConfigured && process.env.NODE_ENV === 'production') {
-    const missing = [];
-    if (!url) missing.push("NEXT_PUBLIC_SUPABASE_URL");
-    if (!key) missing.push("NEXT_PUBLIC_SUPABASE_ANON_KEY");
-    
-    console.error(`[CRITICAL] Supabase connection failed. Missing Environment Variables: ${missing.join(", ")}`);
-    console.error("ACTION REQUIRED: Go to Vercel Dashboard -> Settings -> Environment Variables and add these keys.");
-  }
-  return isConfigured;
-}
-
-// --- FILE SYSTEM FALLBACKS (Legacy) ---
 async function readAllOrdersFile(): Promise<OrderRecord[]> {
   try {
     await fs.mkdir(dataDir, { recursive: true });
@@ -59,7 +45,7 @@ async function writeAllOrdersFile(orders: OrderRecord[]): Promise<void> {
     await fs.mkdir(dataDir, { recursive: true });
     await fs.writeFile(dataFile, JSON.stringify(orders, null, 2), "utf8");
   } catch (error) {
-    console.warn("File write failed (Vercel read-only or permission error):", error);
+    console.warn("File write failed:", error);
   }
 }
 // --------------------------------------
@@ -73,115 +59,117 @@ export async function createOrder(input: {
   notes?: string;
   prescriptionPath?: string;
 }): Promise<OrderRecord> {
-  if (isSupabaseConfigured()) {
-    const newOrder = {
-      orderId: input.orderId,
-      fullName: input.fullName,
-      mobile: input.mobile,
-      address: input.address,
-      deliveryTime: input.deliveryTime,
-      notes: input.notes,
-      prescriptionPath: input.prescriptionPath,
-      status: "Order Received",
-      createdAt: new Date().toISOString()
-    };
+  const newOrder = {
+    orderId: input.orderId,
+    fullName: input.fullName,
+    mobile: input.mobile,
+    address: input.address,
+    deliveryTime: input.deliveryTime,
+    notes: input.notes,
+    prescriptionPath: input.prescriptionPath,
+    status: "Order Received",
+    createdAt: new Date().toISOString()
+  };
 
-    const { error } = await supabase
-      .from('orders')
-      .insert([newOrder]);
+  const { error } = await supabase
+    .from('orders')
+    .insert([newOrder]);
 
-    if (error) {
-      console.error("Supabase error:", error);
-      throw new Error("Failed to create order in Supabase");
+  if (error) {
+    console.error("Supabase error:", error);
+    // Silent fallback to local file if in development
+    if (process.env.NODE_ENV === 'development') {
+      const orders = await readAllOrdersFile();
+      const order: OrderRecord = {
+        ...input,
+        status: "Order Received",
+        createdAt: new Date().toISOString()
+      };
+      orders.push(order);
+      await writeAllOrdersFile(orders);
+      return order;
     }
-
-    return newOrder as OrderRecord;
-  } else {
-    // Fallback to file
-    const orders = await readAllOrdersFile();
-    const order: OrderRecord = {
-      ...input,
-      status: "Order Received",
-      createdAt: new Date().toISOString()
-    };
-    orders.push(order);
-    await writeAllOrdersFile(orders);
-    return order;
+    throw new Error("Failed to create order in Supabase");
   }
+
+  return newOrder as OrderRecord;
 }
 
 export async function listOrders(): Promise<OrderRecord[]> {
-  if (isSupabaseConfigured()) {
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
-      .order('createdAt', { ascending: false });
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .order('createdAt', { ascending: false });
 
-    if (error) {
-      console.error("Supabase error:", error);
-      return [];
+  if (error) {
+    console.error("Supabase error:", error);
+    if (process.env.NODE_ENV === 'development') {
+      return readAllOrdersFile();
     }
-
-    return data as OrderRecord[];
-  } else {
-    return readAllOrdersFile();
+    return [];
   }
+
+  return data as OrderRecord[];
 }
 
 export async function findOrder(orderId: string): Promise<OrderRecord | undefined> {
-  if (isSupabaseConfigured()) {
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
-      .eq('orderId', orderId)
-      .single();
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('orderId', orderId)
+    .single();
 
-    if (error || !data) return undefined;
-    return data as OrderRecord;
-  } else {
-    const orders = await readAllOrdersFile();
-    return orders.find((order) => order.orderId === orderId);
+  if (error || !data) {
+    if (process.env.NODE_ENV === 'development') {
+      const orders = await readAllOrdersFile();
+      return orders.find((order) => order.orderId === orderId);
+    }
+    return undefined;
   }
+  return data as OrderRecord;
 }
 
 export async function updateOrderStatus(
   orderId: string,
   status: OrderStatus
 ): Promise<OrderRecord | undefined> {
-  if (isSupabaseConfigured()) {
-    const { data, error } = await supabase
-      .from('orders')
-      .update({ status })
-      .eq('orderId', orderId)
-      .select()
-      .single();
+  const { data, error } = await supabase
+    .from('orders')
+    .update({ status })
+    .eq('orderId', orderId)
+    .select()
+    .single();
 
-    if (error || !data) return undefined;
-    return data as OrderRecord;
-  } else {
-    const orders = await readAllOrdersFile();
-    const index = orders.findIndex((order) => order.orderId === orderId);
-    if (index === -1) return undefined;
-    orders[index] = { ...orders[index], status };
-    await writeAllOrdersFile(orders);
-    return orders[index];
+  if (error || !data) {
+    if (process.env.NODE_ENV === 'development') {
+      const orders = await readAllOrdersFile();
+      const index = orders.findIndex((order) => order.orderId === orderId);
+      if (index === -1) return undefined;
+      orders[index] = { ...orders[index], status };
+      await writeAllOrdersFile(orders);
+      return orders[index];
+    }
+    return undefined;
   }
+  return data as OrderRecord;
 }
 
 export async function deleteOrder(orderId: string): Promise<boolean> {
-  if (isSupabaseConfigured()) {
-    const { error } = await supabase
-      .from('orders')
-      .delete()
-      .eq('orderId', orderId);
+  const { error } = await supabase
+    .from('orders')
+    .delete()
+    .eq('orderId', orderId);
 
-    return !error;
-  } else {
-    const orders = await readAllOrdersFile();
-    const index = orders.findIndex((order) => order.orderId === orderId);
-    if (index === -1) return false;
-    orders.splice(index, 1);
-    await writeAllOrdersFile(orders);
-    return true;
+  if (error) {
+    if (process.env.NODE_ENV === 'development') {
+      const orders = await readAllOrdersFile();
+      const index = orders.findIndex((order) => order.orderId === orderId);
+      if (index === -1) return false;
+      orders.splice(index, 1);
+      await writeAllOrdersFile(orders);
+      return true;
+    }
+    return false;
   }
+  return true;
 }
