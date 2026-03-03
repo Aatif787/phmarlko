@@ -21,11 +21,6 @@ export interface OrderRecord {
   createdAt: string;
 }
 
-// Helper to check if Supabase is configured (always true now due to hardcoded defaults in lib/supabase.ts)
-function isSupabaseConfigured() {
-  return true;
-}
-
 // --- FILE SYSTEM FALLBACKS (Only for local dev if needed) ---
 const dataDir = process.env.DATA_DIR || path.join(process.cwd(), "data");
 const dataFile = path.join(dataDir, "orders.json");
