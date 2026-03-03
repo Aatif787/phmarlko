@@ -22,7 +22,7 @@ export function TrustSafety() {
   return (
     <section
       id="trust"
-      className="scroll-section border-t border-slate-200/70 bg-med-bg"
+      className="scroll-section border-t border-white/5 bg-slate-900/60 backdrop-blur-3xl"
       aria-labelledby="trust-heading"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:py-20 sm:px-6 lg:px-8">
@@ -35,45 +35,43 @@ export function TrustSafety() {
                 </p>
                 <h2
                   id="trust-heading"
-                  className="mt-3 sm:mt-4 font-heading text-3xl font-bold text-slate-900 sm:text-4xl lg:text-5xl"
+                  className="mt-3 sm:mt-4 font-heading text-3xl font-black text-white sm:text-4xl lg:text-6xl tracking-tight"
                 >
-                  Healthcare You Can Trust
+                  Neural Trust Protocol
                 </h2>
-                <p className="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600">
-                  We don&apos;t just deliver medicines; we deliver peace of mind. Every product is sourced from authorized distributors.
+                <p className="mt-4 text-base sm:text-lg text-slate-300 font-medium leading-relaxed">
+                  Encryption for your health. Every unit is verified through our proprietary Lucknow security grid.
                 </p>
               </div>
-              
+
               <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
-                <motion.div 
-                  className="glass-soft p-4 sm:p-6 group"
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                <motion.div
+                  className="bg-slate-900/80 backdrop-blur-xl p-6 group border border-white/10 rounded-3xl"
+                  whileHover={{ y: -4, borderColor: "rgba(56, 189, 248, 0.4)" }}
                 >
-                  <motion.div 
+                  <motion.div
                     className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-lg shadow-emerald-500/20"
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <CheckCircle2 size={32} strokeWidth={1.5} />
                   </motion.div>
-                  <h3 className="font-bold text-lg text-slate-900">Verified Partners</h3>
-                  <p className="mt-2 text-sm text-slate-600">We only purchase from audited, licensed pharmacies in Lucknow.</p>
+                  <h3 className="font-bold text-lg text-white">Verified Nodes</h3>
+                  <p className="mt-2 text-sm text-slate-400 font-medium">Synced with top-tier licensed pharmaceutical hubs in LKO.</p>
                 </motion.div>
-                <motion.div 
-                  className="glass-soft p-4 sm:p-6 group"
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                <motion.div
+                  className="bg-slate-900/80 backdrop-blur-xl p-6 group border border-white/10 rounded-3xl"
+                  whileHover={{ y: -4, borderColor: "rgba(56, 189, 248, 0.4)" }}
                 >
-                  <motion.div 
+                  <motion.div
                     className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 text-white shadow-lg shadow-sky-500/20"
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <ShieldCheck size={32} strokeWidth={1.5} />
                   </motion.div>
-                  <h3 className="font-bold text-lg text-slate-900">100% Genuine</h3>
-                  <p className="mt-2 text-sm text-slate-600">Sealed packs at MRP. No substitutions without approval.</p>
+                  <h3 className="font-bold text-lg text-white">Quantum Purity</h3>
+                  <p className="mt-2 text-sm text-slate-400 font-medium">Direct sourcing. Zero tampering. Absolute integrity.</p>
                 </motion.div>
               </div>
 

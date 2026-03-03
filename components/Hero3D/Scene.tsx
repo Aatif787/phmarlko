@@ -9,7 +9,7 @@ import * as THREE from "three";
 // Reusable Capsule Component
 function Capsule({ position, rotation, scale }: { position: [number, number, number], rotation: [number, number, number], scale: number }) {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   useEffect(() => {
     if (groupRef.current) {
       // Floating animation using GSAP
@@ -20,7 +20,7 @@ function Capsule({ position, rotation, scale }: { position: [number, number, num
         yoyo: true,
         ease: "power1.inOut"
       });
-      
+
       // Subtle rotation
       gsap.to(groupRef.current.rotation, {
         z: "+=0.05",
@@ -59,19 +59,25 @@ function Capsule({ position, rotation, scale }: { position: [number, number, num
 
         {/* Middle Ring / Ridge */}
         <mesh position={[0, -0.2, 0]} castShadow receiveShadow>
-            <cylinderGeometry args={[1.02, 1.02, 0.1, 64]} />
-            <meshPhysicalMaterial color="#2A7FFF" {...materialProps} roughness={0.2} />
+          <cylinderGeometry args={[1.02, 1.02, 0.1, 64]} />
+          <meshPhysicalMaterial
+            color="#0ea5e9"
+            {...materialProps}
+            roughness={0.1}
+            emissive="#0ea5e9"
+            emissiveIntensity={2}
+          />
         </mesh>
 
         {/* Bottom Half - Medical Blue */}
         <group position={[0, -0.95, 0]}>
           <mesh position={[0, 0, 0]} castShadow receiveShadow>
             <cylinderGeometry args={[1, 1, 1.5, 64]} />
-            <meshPhysicalMaterial color="#2A7FFF" {...materialProps} />
+            <meshPhysicalMaterial color="#0ea5e9" {...materialProps} />
           </mesh>
           <mesh position={[0, -0.75, 0]} rotation={[Math.PI, 0, 0]} castShadow receiveShadow>
             <sphereGeometry args={[1, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshPhysicalMaterial color="#2A7FFF" {...materialProps} />
+            <meshPhysicalMaterial color="#0ea5e9" {...materialProps} />
           </mesh>
         </group>
       </Float>
@@ -82,14 +88,14 @@ function Capsule({ position, rotation, scale }: { position: [number, number, num
 // Realistic Pill Box Component
 function PillBox() {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   // Compartment Contents - 4 Types of Pills
   const pillsData = useMemo(() => {
     const createPills = (count: number, type: 'capsule' | 'round' | 'oval', color1: string, color2?: string) => {
       return Array.from({ length: count }).map(() => ({
         position: [
           (Math.random() - 0.5) * 0.8,
-          (Math.random() - 0.5) * 0.2, 
+          (Math.random() - 0.5) * 0.2,
           (Math.random() - 0.5) * 0.8
         ] as [number, number, number],
         rotation: [
@@ -133,152 +139,152 @@ function PillBox() {
   return (
     <group ref={groupRef} position={[2, -0.5, -2]} rotation={[0.4, -0.3, 0.1]} scale={1.3}>
       <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.2}>
-        
+
         {/* Main Box Body */}
         <group>
-            {/* Base */}
-            <RoundedBox args={[2.2, 0.5, 2.2]} radius={0.1} smoothness={4} position={[0, -0.25, 0]} castShadow receiveShadow>
-                <primitive object={boxMaterial} />
-            </RoundedBox>
-            
-            {/* Inner Compartments (Walls) */}
-            <group position={[0, 0, 0]}>
-                {/* Cross Divider */}
-                <mesh position={[0, 0.1, 0]} castShadow receiveShadow>
-                    <boxGeometry args={[2, 0.4, 0.1]} />
-                    <primitive object={rimMaterial} />
-                </mesh>
-                <mesh position={[0, 0.1, 0]} rotation={[0, Math.PI/2, 0]} castShadow receiveShadow>
-                    <boxGeometry args={[2, 0.4, 0.1]} />
-                    <primitive object={rimMaterial} />
-                </mesh>
-                
-                {/* Rim Border */}
-                <mesh position={[0, 0.1, 1]} castShadow receiveShadow>
-                    <boxGeometry args={[2.2, 0.4, 0.1]} />
-                    <primitive object={rimMaterial} />
-                </mesh>
-                <mesh position={[0, 0.1, -1]} castShadow receiveShadow>
-                    <boxGeometry args={[2.2, 0.4, 0.1]} />
-                    <primitive object={rimMaterial} />
-                </mesh>
-                <mesh position={[1, 0.1, 0]} rotation={[0, Math.PI/2, 0]} castShadow receiveShadow>
-                    <boxGeometry args={[2.2, 0.4, 0.1]} />
-                    <primitive object={rimMaterial} />
-                </mesh>
-                <mesh position={[-1, 0.1, 0]} rotation={[0, Math.PI/2, 0]} castShadow receiveShadow>
-                    <boxGeometry args={[2.2, 0.4, 0.1]} />
-                    <primitive object={rimMaterial} />
-                </mesh>
-            </group>
+          {/* Base */}
+          <RoundedBox args={[2.2, 0.5, 2.2]} radius={0.1} smoothness={4} position={[0, -0.25, 0]} castShadow receiveShadow>
+            <primitive object={boxMaterial} />
+          </RoundedBox>
+
+          {/* Inner Compartments (Walls) */}
+          <group position={[0, 0, 0]}>
+            {/* Cross Divider */}
+            <mesh position={[0, 0.1, 0]} castShadow receiveShadow>
+              <boxGeometry args={[2, 0.4, 0.1]} />
+              <primitive object={rimMaterial} />
+            </mesh>
+            <mesh position={[0, 0.1, 0]} rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
+              <boxGeometry args={[2, 0.4, 0.1]} />
+              <primitive object={rimMaterial} />
+            </mesh>
+
+            {/* Rim Border */}
+            <mesh position={[0, 0.1, 1]} castShadow receiveShadow>
+              <boxGeometry args={[2.2, 0.4, 0.1]} />
+              <primitive object={rimMaterial} />
+            </mesh>
+            <mesh position={[0, 0.1, -1]} castShadow receiveShadow>
+              <boxGeometry args={[2.2, 0.4, 0.1]} />
+              <primitive object={rimMaterial} />
+            </mesh>
+            <mesh position={[1, 0.1, 0]} rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
+              <boxGeometry args={[2.2, 0.4, 0.1]} />
+              <primitive object={rimMaterial} />
+            </mesh>
+            <mesh position={[-1, 0.1, 0]} rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
+              <boxGeometry args={[2.2, 0.4, 0.1]} />
+              <primitive object={rimMaterial} />
+            </mesh>
+          </group>
         </group>
 
         {/* Open Lid */}
         <group position={[0, 0.25, -1.1]} rotation={[-Math.PI / 1.5, 0, 0]}>
-            <group position={[0, 0, 1.1]}> {/* Pivot correction */}
-                <RoundedBox args={[2.2, 0.2, 2.2]} radius={0.1} smoothness={4} castShadow receiveShadow>
-                    <primitive object={boxMaterial} />
-                </RoundedBox>
-                {/* Lid Interior Detail */}
-                <mesh position={[0, -0.11, 0]} receiveShadow>
-                    <planeGeometry args={[2, 2]} />
-                    <meshStandardMaterial color="#fff7ed" roughness={0.4} />
-                </mesh>
-            </group>
+          <group position={[0, 0, 1.1]}> {/* Pivot correction */}
+            <RoundedBox args={[2.2, 0.2, 2.2]} radius={0.1} smoothness={4} castShadow receiveShadow>
+              <primitive object={boxMaterial} />
+            </RoundedBox>
+            {/* Lid Interior Detail */}
+            <mesh position={[0, -0.11, 0]} receiveShadow>
+              <planeGeometry args={[2, 2]} />
+              <meshStandardMaterial color="#fff7ed" roughness={0.4} />
+            </mesh>
+          </group>
         </group>
 
         {/* Pills in Compartments */}
         <group position={[0, 0, 0]}>
-            {/* Top Left: Orange/White Capsules */}
-            <group position={[-0.5, 0, -0.5]}>
-                <Instances range={12}>
-                    <capsuleGeometry args={[0.12, 0.3, 8, 16]} />
-                    <meshPhysicalMaterial 
-                        roughness={0.2} 
-                        clearcoat={0.3}
-                        color="#f97316"
-                    />
-                    {pillsData.quadrant1.map((pill, i) => (
-                        <Instance
-                            key={i}
-                            position={pill.position}
-                            rotation={pill.rotation}
-                            scale={pill.scale}
-                            color={i % 2 === 0 ? pill.color1 : pill.color2} 
-                        />
-                    ))}
-                </Instances>
-            </group>
+          {/* Top Left: Orange/White Capsules */}
+          <group position={[-0.5, 0, -0.5]}>
+            <Instances range={12}>
+              <capsuleGeometry args={[0.12, 0.3, 8, 16]} />
+              <meshPhysicalMaterial
+                roughness={0.2}
+                clearcoat={0.3}
+                color="#f97316"
+              />
+              {pillsData.quadrant1.map((pill, i) => (
+                <Instance
+                  key={i}
+                  position={pill.position}
+                  rotation={pill.rotation}
+                  scale={pill.scale}
+                  color={i % 2 === 0 ? pill.color1 : pill.color2}
+                />
+              ))}
+            </Instances>
+          </group>
 
-            {/* Top Right: Yellow Round Tablets */}
-            <group position={[0.5, 0, -0.5]}>
-                <Instances range={15}>
-                    <cylinderGeometry args={[0.15, 0.15, 0.1, 32]} />
-                    <meshPhysicalMaterial 
-                        color="#facc15" 
-                        roughness={0.4} 
-                        metalness={0.1} 
-                        clearcoat={0.2}
-                        sheen={1}
-                        sheenRoughness={0.5}
-                        sheenColor="#ffffff"
-                    />
-                    {pillsData.quadrant2.map((pill, i) => (
-                        <Instance
-                            key={i}
-                            position={pill.position}
-                            rotation={pill.rotation}
-                            scale={pill.scale}
-                        />
-                    ))}
-                </Instances>
-            </group>
+          {/* Top Right: Yellow Round Tablets */}
+          <group position={[0.5, 0, -0.5]}>
+            <Instances range={15}>
+              <cylinderGeometry args={[0.15, 0.15, 0.1, 32]} />
+              <meshPhysicalMaterial
+                color="#facc15"
+                roughness={0.4}
+                metalness={0.1}
+                clearcoat={0.2}
+                sheen={1}
+                sheenRoughness={0.5}
+                sheenColor="#ffffff"
+              />
+              {pillsData.quadrant2.map((pill, i) => (
+                <Instance
+                  key={i}
+                  position={pill.position}
+                  rotation={pill.rotation}
+                  scale={pill.scale}
+                />
+              ))}
+            </Instances>
+          </group>
 
-            {/* Bottom Left: Blue Oval Tablets */}
-            <group position={[-0.5, 0, 0.5]}>
-                <Instances range={10}>
-                    <sphereGeometry args={[0.15, 32, 16]} />
-                    <meshPhysicalMaterial 
-                        color="#3b82f6" 
-                        roughness={0.1} 
-                        metalness={0.2}
-                        clearcoat={1}
-                        transmission={0.1}
-                    />
-                    {pillsData.quadrant3.map((pill, i) => (
-                        <Instance
-                            key={i}
-                            position={pill.position}
-                            rotation={pill.rotation}
-                            scale={[1, 0.6, 1.5]} // Flatten to make oval
-                        />
-                    ))}
-                </Instances>
-            </group>
+          {/* Bottom Left: Blue Oval Tablets */}
+          <group position={[-0.5, 0, 0.5]}>
+            <Instances range={10}>
+              <sphereGeometry args={[0.15, 32, 16]} />
+              <meshPhysicalMaterial
+                color="#3b82f6"
+                roughness={0.1}
+                metalness={0.2}
+                clearcoat={1}
+                transmission={0.1}
+              />
+              {pillsData.quadrant3.map((pill, i) => (
+                <Instance
+                  key={i}
+                  position={pill.position}
+                  rotation={pill.rotation}
+                  scale={[1, 0.6, 1.5]} // Flatten to make oval
+                />
+              ))}
+            </Instances>
+          </group>
 
-            {/* Bottom Right: Red Softgel Capsules */}
-            <group position={[0.5, 0, 0.5]}>
-                <Instances range={12}>
-                    <capsuleGeometry args={[0.12, 0.3, 8, 16]} />
-                    <meshPhysicalMaterial 
-                        color="#ef4444" 
-                        roughness={0.1} 
-                        metalness={0.1} 
-                        clearcoat={1} 
-                        transmission={0.6}
-                        thickness={1}
-                        ior={1.4}
-                    />
-                    {pillsData.quadrant4.map((pill, i) => (
-                        <Instance
-                            key={i}
-                            position={pill.position}
-                            rotation={pill.rotation}
-                            scale={pill.scale}
-                        />
-                    ))}
-                </Instances>
-            </group>
+          {/* Bottom Right: Red Softgel Capsules */}
+          <group position={[0.5, 0, 0.5]}>
+            <Instances range={12}>
+              <capsuleGeometry args={[0.12, 0.3, 8, 16]} />
+              <meshPhysicalMaterial
+                color="#ef4444"
+                roughness={0.1}
+                metalness={0.1}
+                clearcoat={1}
+                transmission={0.6}
+                thickness={1}
+                ior={1.4}
+              />
+              {pillsData.quadrant4.map((pill, i) => (
+                <Instance
+                  key={i}
+                  position={pill.position}
+                  rotation={pill.rotation}
+                  scale={pill.scale}
+                />
+              ))}
+            </Instances>
+          </group>
         </group>
 
       </Float>
@@ -293,48 +299,49 @@ function SceneContent() {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={40} />
-      
+
       <Environment preset="apartment" blur={0.6} background={false} />
-      
+
       <ambientLight intensity={0.4} />
-      <spotLight 
-        position={[10, 10, 10]} 
-        angle={0.2} 
-        penumbra={0.5} 
-        intensity={800} 
-        castShadow 
+      <spotLight
+        position={[10, 10, 10]}
+        angle={0.2}
+        penumbra={0.5}
+        intensity={800}
+        castShadow
         shadow-bias={-0.0001}
       />
-      <spotLight 
-        position={[-5, 5, -5]} 
-        intensity={500} 
+      <spotLight
+        position={[-5, 5, -5]}
+        intensity={500}
         color="#fb923c" // Warm rim light
         angle={0.5}
       />
-      <rectAreaLight 
-        width={10} 
-        height={10} 
-        intensity={2} 
-        position={[5, 0, 5]} 
-        color="#ffffff" 
-        lookAt={() => new THREE.Vector3(0,0,0)} 
+      <rectAreaLight
+        width={10}
+        height={10}
+        intensity={5}
+        position={[5, 0, 5]}
+        color="#0ea5e9"
+        lookAt={() => new THREE.Vector3(0, 0, 0)}
       />
+      <pointLight position={[0, 2, 0]} intensity={10} color="#0ea5e9" />
 
       <group position={isMobile ? [0, 1, 0] : [2, 0, 0]}>
-        <Capsule 
-          position={[0, 0, 0]} 
-          rotation={[0, 0, Math.PI / 6]} 
-          scale={isMobile ? 0.6 : 0.9} 
+        <Capsule
+          position={[0, 0, 0]}
+          rotation={[0, 0, Math.PI / 6]}
+          scale={isMobile ? 0.6 : 0.9}
         />
         <PillBox />
       </group>
 
-      <ContactShadows 
-        position={[0, -4, 0]} 
-        opacity={0.3} 
-        scale={20} 
-        blur={2.5} 
-        far={4} 
+      <ContactShadows
+        position={[0, -4, 0]}
+        opacity={0.3}
+        scale={20}
+        blur={2.5}
+        far={4}
         color="#0f172a" // Darker, more realistic shadow color
       />
     </>

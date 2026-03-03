@@ -8,84 +8,85 @@ export function HeroSection() {
       {/* Abstract 3D Background Elements */}
       <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-gradient-to-br from-med-primary/20 to-emerald-500/20 blur-3xl" />
       <div className="pointer-events-none absolute -left-20 top-40 h-72 w-72 rounded-full bg-gradient-to-tr from-sky-400/20 to-indigo-500/20 blur-3xl" />
-      
-      <div className="mx-auto max-w-7xl px-4 pb-8 pt-12 sm:px-6 sm:pb-12 sm:pt-20 lg:px-8 relative z-10">
-        <div className="hero-gradient rounded-[1.5rem] sm:rounded-[2.5rem] p-1 shadow-2xl shadow-med-primary/10 backdrop-blur-sm bg-white/30 border border-white/50">
-          <div className="hero-layer rounded-[calc(1.5rem-4px)] sm:rounded-[calc(2.5rem-4px)] bg-white/60 backdrop-blur-md px-4 pb-6 pt-6 sm:px-8 sm:pb-10 sm:pt-12 lg:px-16 lg:pt-16">
+
+      <div className="mx-auto max-w-7xl px-4 pb-8 pt-12 sm:px-6 sm:pb-12 sm:pt-32 lg:px-8 relative z-10">
+        <div className="hero-gradient rounded-[1.5rem] sm:rounded-[3rem] p-1 shadow-[0_0_50px_rgba(14,165,233,0.15)] backdrop-blur-sm bg-white/5 border border-white/10">
+          <div className="hero-layer rounded-[calc(1.5rem-4px)] sm:rounded-[calc(3rem-4px)] bg-slate-900/40 backdrop-blur-xl px-4 pb-6 pt-6 sm:px-8 sm:pb-10 sm:pt-12 lg:px-16 lg:pt-16 border border-white/5">
             <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
               <ScrollReveal>
                 <div className="space-y-6 sm:space-y-8">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/50 px-3 py-1 text-xs font-semibold text-emerald-700 backdrop-blur-md">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1.5 text-xs font-bold text-sky-400 backdrop-blur-md shadow-[0_0_15px_rgba(14,165,233,0.2)]">
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500"></span>
                     </span>
-                    Live in Domariyaganj
+                    <span className="tracking-widest uppercase">Quantum Link: Domariyaganj</span>
                   </div>
-                  
+
                   <h1
                     id="hero-heading"
-                    className="font-heading text-3xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-slate-900"
+                    className="font-heading text-4xl sm:text-6xl lg:text-8xl font-black leading-[0.95] tracking-tighter text-white"
                   >
-                    Medicines from Lucknow,
-                    <span className="mt-1 sm:mt-2 block bg-gradient-to-r from-med-primary via-emerald-600 to-med-emerald bg-clip-text text-transparent">
-                      Delivered Next Day.
+                    Next-Gen
+                    <span className="mt-2 block bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(14,165,233,0.3)]">
+                      Medical Delivery.
                     </span>
                   </h1>
-                  
-                  <p className="max-w-xl text-lg sm:text-xl leading-relaxed text-slate-600">
-                    Authentic medicines sourced directly from Lucknow&apos;s verified distributors. 
-                    Upload your prescription and get doorstep delivery in Domariyaganj.
+
+                  <p className="max-w-xl text-lg sm:text-xl leading-relaxed text-slate-300 font-medium opacity-90">
+                    Sourcing 100% authentic pharmaceuticals from Lucknow&apos;s elite centers.
+                    Real-time quantum tracking. Superior reliability.
                   </p>
 
-                  <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:pt-4">
-                    <Link href="/upload-prescription" className="button-primary group relative overflow-hidden text-base px-8 py-4 shadow-xl shadow-med-primary/20 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-med-primary/30">
-                      <span className="relative z-10">Upload Prescription</span>
-                      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 transition-transform duration-700 group-hover:animate-shimmer" />
+                  <div className="flex flex-col gap-5 pt-4 sm:flex-row sm:items-center sm:pt-6">
+                    <Link href="/upload-prescription" className="button-primary group relative overflow-hidden text-base px-10 py-4 shadow-[0_0_20px_#0ea5e966] transition-all hover:scale-105 hover:shadow-[0_0_35px_#0ea5e999]">
+                      <span className="relative z-10 font-bold tracking-tight">Access Quantum Portal</span>
+                      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/30 to-white/0 transition-transform duration-700 group-hover:animate-shimmer" />
                     </Link>
-                    <Link href="https://wa.me/918601439557" className="button-secondary group text-base px-8 py-4 backdrop-blur-md transition-all hover:bg-white/80">
-                      <span className="mr-2">💬</span> WhatsApp Order
+                    <Link href="https://wa.me/918601439557" className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-bold transition-all hover:bg-white/10 hover:border-sky-500/50">
+                      <span className="text-xl group-hover:animate-bounce-slow">💬</span>
+                      <span>Direct Uplink</span>
                     </Link>
                   </div>
 
-                  <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm font-medium text-slate-700">
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100/80 text-emerald-700">✓</div>
-                      100% Genuine
+                  <div className="flex flex-wrap gap-x-10 gap-y-5 text-xs font-bold uppercase tracking-widest text-slate-400">
+                    <div className="flex items-center gap-3 group transition-colors hover:text-sky-400">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20 shadow-[0_0_10px_rgba(14,165,233,0.1)] group-hover:shadow-[0_0_15px_rgba(14,165,233,0.3)] transition-all">✓</div>
+                      100% Verified
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100/80 text-emerald-700">✓</div>
-                      Pay on Delivery
+                    <div className="flex items-center gap-3 group transition-colors hover:text-emerald-400">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all">✓</div>
+                      Instant Pay
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100/80 text-emerald-700">✓</div>
-                      Easy Returns
+                    <div className="flex items-center gap-3 group transition-colors hover:text-indigo-400">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-[0_0_10px_rgba(139,92,246,0.1)] group-hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] transition-all">✓</div>
+                      Secure Return
                     </div>
                   </div>
                 </div>
               </ScrollReveal>
-              
+
               <ScrollReveal className="relative perspective-1000">
                 <div className="card-3d transform-style-3d rotate-y-12 rotate-x-6 hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 ease-out">
                   <div className="card-3d-inner glass-elevated relative overflow-hidden rounded-[2.5rem] border border-white/40 shadow-2xl shadow-indigo-500/10">
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-med-primarySoft/20" />
-                    
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-sky-900/20" />
+
                     {/* Floating 3D Elements */}
-                     {/* Replaced by Scene3D canvas */}
- 
-                     <div className="relative z-10 space-y-8 p-8 sm:p-10">
-                      <div className="flex items-center justify-between gap-4">
+                    {/* Replaced by Scene3D canvas */}
+
+                    <div className="relative z-10 space-y-8 p-8 sm:p-10">
+                      <div className="flex items-center justify-between gap-4 border-b border-white/5 pb-4">
                         <div>
-                          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                            Live Order Tracking
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-sky-400">
+                            Neural Tracking Active
                           </p>
-                          <p className="mt-1 text-base font-bold text-slate-900">
-                            Lucknow <span className="text-slate-400">→</span> Domariyaganj
+                          <p className="mt-1 text-base font-black text-white">
+                            LKO <span className="text-sky-500 animate-pulse">→</span> DMG
                           </p>
                         </div>
-                        <div className="rounded-xl bg-white/80 px-4 py-2 text-right text-xs shadow-sm backdrop-blur-md">
-                          <p className="font-bold text-emerald-600">Arriving Tomorrow</p>
-                          <p className="text-slate-500">By 6:00 PM</p>
+                        <div className="rounded-xl bg-sky-500/10 border border-sky-500/20 px-4 py-2 text-right text-xs shadow-sm backdrop-blur-md">
+                          <p className="font-bold text-sky-400">ETA: T-24H</p>
+                          <p className="text-slate-400">Standard Uplink</p>
                         </div>
                       </div>
 
@@ -96,7 +97,7 @@ export function HeroSection() {
                           </p>
                           <div className="relative h-36 rounded-2xl bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 border border-white/10 overflow-hidden">
                             <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20" />
-                            
+
                             {/* Animated Route Line */}
                             <div className="absolute left-8 top-8 h-[calc(100%-64px)] w-0.5 bg-slate-700/50">
                               <div className="absolute top-0 w-full bg-gradient-to-b from-emerald-400 via-sky-400 to-emerald-400 animate-scroll-y h-full opacity-50" />
@@ -131,14 +132,14 @@ export function HeroSection() {
                               <div className="h-2 w-1/2 rounded-full bg-slate-700" />
                             </div>
                           </div>
-                          
-                          <div className="rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-3 border border-emerald-500/20">
+
+                          <div className="rounded-2xl bg-sky-500/10 p-3 border border-sky-500/20 backdrop-blur-sm">
                             <div className="flex justify-between items-end">
                               <div>
-                                <p className="text-[10px] text-emerald-200">Total Amount</p>
-                                <p className="text-lg font-bold text-white">₹929</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-sky-300">Total Credits</p>
+                                <p className="text-lg font-black text-white">₹929.00</p>
                               </div>
-                              <div className="h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px]">✓</div>
+                              <div className="h-6 w-6 rounded-lg bg-sky-500 flex items-center justify-center text-[10px] text-white shadow-[0_0_10px_#0ea5e9]">✓</div>
                             </div>
                           </div>
                         </div>

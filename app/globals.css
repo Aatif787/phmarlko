@@ -25,6 +25,31 @@
     radial-gradient(circle at top, rgba(56, 189, 248, 0.3), transparent 55%),
     radial-gradient(circle at bottom, rgba(34, 197, 94, 0.2), transparent 60%);
   --theme-connector-gradient: linear-gradient(to bottom, rgba(148, 163, 184, 0.2), rgba(14, 165, 233, 0.8));
+  --theme-glow: 0 0 20px rgba(11, 158, 217, 0.3);
+}
+
+html[data-theme="quantum"] {
+  --theme-bg: #050b14;
+  --theme-text: #e2e8f0;
+  --theme-text-muted: #94a3b8;
+  --theme-text-soft: #64748b;
+  --theme-border: rgba(56, 189, 248, 0.2);
+  --theme-surface: rgba(15, 23, 42, 0.6);
+  --theme-surface-strong: rgba(15, 23, 42, 0.9);
+  --theme-accent: #0ea5e9;
+  --theme-accent-2: #10b981;
+  --theme-accent-3: #8b5cf6;
+  --theme-bg-image: 
+    radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+    linear-gradient(135deg, #050b14 0%, #0f172a 100%);
+  --theme-main-gradient: linear-gradient(180deg, #050b14 0%, #0f172a 100%);
+  --theme-hero-gradient: 
+    radial-gradient(circle at top, rgba(14, 165, 233, 0.2), transparent 70%),
+    radial-gradient(circle at bottom, rgba(16, 185, 129, 0.1), transparent 70%);
+  --theme-connector-gradient: linear-gradient(to bottom, rgba(56, 189, 248, 0.2), #0ea5e9);
+  --theme-glow: 0 0 30px rgba(14, 165, 233, 0.4);
 }
 
 html[data-theme="classic"] {

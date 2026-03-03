@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 
 const themes = [
   { id: "default", label: "Default" },
+  { id: "quantum", label: "Quantum Cyber" },
   { id: "classic", label: "Classic B&W" },
   { id: "liam", label: "Liam Green" }
 ];
@@ -45,51 +46,51 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-7xl transition-all duration-500 rounded-3xl border ${
           scrolled
-            ? "border-b border-slate-200/60 bg-white/80 backdrop-blur-xl py-3"
-            : "border-transparent bg-transparent py-4 sm:py-5"
+            ? "border-white/10 bg-slate-900/40 backdrop-blur-2xl py-3 shadow-[0_0_30px_rgba(0,0,0,0.3)]"
+            : "border-white/5 bg-white/5 backdrop-blur-md py-4 sm:py-5"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-3">
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
-              className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-med-primary to-med-emerald text-white shadow-soft"
+              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-med-primary to-med-emerald text-white shadow-[0_0_15px_rgba(42,127,255,0.4)]"
             >
-              <span className="text-lg font-semibold">M</span>
+              <span className="text-xl font-bold">M</span>
             </motion.div>
             <div className="flex flex-col">
-              <span className="font-heading text-lg font-bold tracking-tight text-slate-900 leading-tight">
+              <span className="font-heading text-xl font-bold tracking-tight text-white leading-tight drop-shadow-sm">
                 MedExpress
               </span>
-              <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-med-primary animate-pulse">
                 Domariyaganj
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
-            <Link href="/#how-it-works" className="relative group hover:text-med-primary transition-colors">
-              How it works
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full" />
+          <nav className="hidden items-center gap-8 text-sm font-bold text-white/80 md:flex">
+            <Link href="/#how-it-works" className="relative group hover:text-med-primary transition-all duration-300">
+              <span className="relative z-10">How it works</span>
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
             </Link>
-            <Link href="/upload-prescription" className="relative group hover:text-med-primary transition-colors">
-              Upload Prescription
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full" />
+            <Link href="/upload-prescription" className="relative group hover:text-med-primary transition-all duration-300">
+              <span className="relative z-10">Upload Prescription</span>
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
             </Link>
-            <Link href="/track-order" className="relative group hover:text-med-primary transition-colors">
-              Track Order
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full" />
+            <Link href="/track-order" className="relative group hover:text-med-primary transition-all duration-300">
+              <span className="relative z-10">Track Order</span>
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
             </Link>
-            <Link href="/admin" className="relative group hover:text-med-primary transition-colors">
-              Admin
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full" />
+            <Link href="/admin" className="relative group hover:text-med-primary transition-all duration-300">
+              <span className="relative z-10">Admin</span>
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
             </Link>
           </nav>
 
