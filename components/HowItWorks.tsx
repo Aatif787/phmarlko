@@ -31,7 +31,7 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="scroll-section border-t border-amber-400/10 bg-gradient-to-b from-[#0c0a1f] to-[#1e1b4b] py-20"
+      className="scroll-section border-t border-emerald-400/10 bg-gradient-to-b from-[#05140b] to-[#064e3b] py-20"
       aria-labelledby="how-heading"
     >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20 sm:px-6 lg:px-8">
@@ -46,8 +46,8 @@ export function HowItWorks() {
             >
               Elite Delivery
             </h2>
-            <p className="mt-4 text-slate-300 max-w-2xl mx-auto text-lg sm:text-xl font-bold italic opacity-90">
-              Your health, our priority. Experience the gold standard of pharmaceutical logistics.
+            <p className="mt-4 text-emerald-100/80 max-w-2xl mx-auto text-lg sm:text-xl font-bold italic opacity-90">
+              Your health, our priority. Experience the emerald standard of pharmaceutical logistics.
             </p>
           </div>
         </ScrollReveal>
@@ -56,7 +56,7 @@ export function HowItWorks() {
           {steps.map((step, index) => (
             <ScrollReveal key={step.title} delay={index * 0.2} animation="fade-up" duration={0.8}>
               <article className="card-3d group h-full">
-                <div className="card-3d-inner bg-slate-900/80 backdrop-blur-2xl relative h-full p-10 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[0_0_50px_rgba(252,211,77,0.2)] border border-amber-400/20 rounded-[2.5rem]">
+                <div className="card-3d-inner bg-slate-900/90 backdrop-blur-2xl relative h-full p-10 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[0_0_50px_rgba(34,197,94,0.2)] border border-emerald-400/20 rounded-[2.5rem]">
                   {index < steps.length - 1 && (
                     <div className="timeline-connector hidden md:block opacity-50" aria-hidden="true" />
                   )}

@@ -22,7 +22,7 @@ export function TrustSafety() {
   return (
     <section
       id="trust"
-      className="scroll-section border-t border-amber-400/10 bg-gradient-to-b from-[#1e1b4b] to-[#0c0a1f] py-20"
+      className="scroll-section border-t border-emerald-400/10 bg-gradient-to-b from-[#064e3b] to-[#05140b] py-20"
       aria-labelledby="trust-heading"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:py-20 sm:px-6 lg:px-8">
@@ -39,7 +39,7 @@ export function TrustSafety() {
                 >
                   Uncompromising Trust
                 </h2>
-                <p className="mt-4 text-lg sm:text-xl text-amber-200/90 font-bold leading-relaxed italic">
+                <p className="mt-4 text-lg sm:text-xl text-emerald-200/90 font-bold leading-relaxed italic">
                   Sourcing only from authorized pharmaceutical distributors. We never compromise on quality.
                 </p>
               </div>

@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 
 const themes = [
   { id: "default", label: "Default" },
+  { id: "liam-dark", label: "Liam Dark" },
   { id: "lux", label: "Super Lux" },
   { id: "classic", label: "Classic B&W" },
   { id: "liam", label: "Liam Green" }
@@ -47,8 +48,8 @@ export function Navbar() {
     <>
       <motion.header
         className={`fixed top-4 left-0 right-0 mx-auto z-40 w-[92%] max-w-7xl transition-all duration-500 rounded-3xl border ${scrolled
-            ? "border-amber-400/20 bg-slate-900/60 backdrop-blur-2xl py-3 shadow-[0_0_40px_rgba(252,211,77,0.15)]"
-            : "border-white/10 bg-white/5 backdrop-blur-md py-4 sm:py-5"
+          ? "border-emerald-400/20 bg-slate-900/80 backdrop-blur-2xl py-3 shadow-[0_0_40px_rgba(34,197,94,0.15)]"
+          : "border-white/10 bg-white/5 backdrop-blur-md py-4 sm:py-5"
           }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -59,7 +60,7 @@ export function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
-              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 via-emerald-500 to-violet-500 text-white shadow-[0_0_20px_rgba(252,211,77,0.4)]"
+              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 via-green-500 to-teal-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.4)]"
             >
               <span className="text-xl font-black">M</span>
             </motion.div>
@@ -67,7 +68,7 @@ export function Navbar() {
               <span className="font-heading text-xl font-black tracking-tight text-white leading-tight drop-shadow-md">
                 MedExpress
               </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-400 animate-pulse">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400 animate-pulse">
                 Domariyaganj
               </span>
             </div>
@@ -75,21 +76,21 @@ export function Navbar() {
 
           {/* Desktop Nav */}
           <nav className="hidden items-center gap-8 text-sm font-bold text-white/90 md:flex">
-            <Link href="/#how-it-works" className="relative group hover:text-amber-400 transition-all duration-300">
+            <Link href="/#how-it-works" className="relative group hover:text-emerald-400 transition-all duration-300">
               <span className="relative z-10">How it works</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-emerald-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#22c55e]" />
             </Link>
-            <Link href="/upload-prescription" className="relative group hover:text-amber-400 transition-all duration-300">
+            <Link href="/upload-prescription" className="relative group hover:text-emerald-400 transition-all duration-300">
               <span className="relative z-10">Upload Prescription</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-emerald-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#22c55e]" />
             </Link>
-            <Link href="/track-order" className="relative group hover:text-amber-400 transition-all duration-300">
+            <Link href="/track-order" className="relative group hover:text-emerald-400 transition-all duration-300">
               <span className="relative z-10">Track Order</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-emerald-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#22c55e]" />
             </Link>
-            <Link href="/admin" className="relative group hover:text-amber-400 transition-all duration-300">
+            <Link href="/admin" className="relative group hover:text-emerald-400 transition-all duration-300">
               <span className="relative z-10">Admin</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-emerald-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#22c55e]" />
             </Link>
           </nav>
 

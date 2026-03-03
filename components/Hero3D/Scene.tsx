@@ -61,11 +61,11 @@ function Capsule({ position, rotation, scale }: { position: [number, number, num
         <mesh position={[0, -0.2, 0]} castShadow receiveShadow>
           <cylinderGeometry args={[1.02, 1.02, 0.1, 64]} />
           <meshPhysicalMaterial
-            color="#fcd34d"
+            color="#22c55e"
             {...materialProps}
             roughness={0}
-            emissive="#fcd34d"
-            emissiveIntensity={4}
+            emissive="#22c55e"
+            emissiveIntensity={3}
           />
         </mesh>
 
@@ -118,80 +118,66 @@ function PillBox() {
   }, []);
 
   const boxMaterial = useMemo(() => new THREE.MeshPhysicalMaterial({
-    color: "#ffedd5", // Light Peach/Cream
-    roughness: 0.15,
-    metalness: 0.1,
-    clearcoat: 0.8,
-    clearcoatRoughness: 0.1,
-    transmission: 0.2, // Slight translucency for plastic feel
-    thickness: 2,
-    ior: 1.5
+    color: "#ffffff",
+    roughness: 0.1,
+    metalness: 0.05,
+    clearcoat: 1,
+    clearcoatRoughness: 0.05,
+    transmission: 0.95, // Highly realistic clear plastic
+    thickness: 0.5,
+    ior: 1.5,
+    attenuationColor: "#f0fdf4",
+    attenuationDistance: 1,
+    transparent: true,
   }), []);
 
-  const rimMaterial = useMemo(() => new THREE.MeshStandardMaterial({
-    color: "#fb923c", // Orange Rim
+  const baseMaterial = useMemo(() => new THREE.MeshPhysicalMaterial({
+    color: "#f0fdf4", // Very faint green tint
     roughness: 0.2,
-    metalness: 0.3,
-    emissive: "#fb923c",
-    emissiveIntensity: 0.1
+    metalness: 0.1,
+    clearcoat: 0.5,
   }), []);
 
   return (
-    <group ref={groupRef} position={[2, -0.5, -2]} rotation={[0.4, -0.3, 0.1]} scale={1.3}>
-      <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.2}>
+    <group ref={groupRef} position={[2, -0.6, -2]} rotation={[0.4, -0.4, 0.1]} scale={1.4}>
+      <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.3}>
+        {/* Main Box Base */}
+        <RoundedBox args={[2.4, 0.6, 2.4]} radius={0.12} smoothness={8} castShadow receiveShadow>
+          <primitive object={baseMaterial} />
+        </RoundedBox>
 
-        {/* Main Box Body */}
-        <group>
-          {/* Base */}
-          <RoundedBox args={[2.2, 0.5, 2.2]} radius={0.1} smoothness={4} position={[0, -0.25, 0]} castShadow receiveShadow>
-            <primitive object={boxMaterial} />
-          </RoundedBox>
-
-          {/* Inner Compartments (Walls) */}
-          <group position={[0, 0, 0]}>
-            {/* Cross Divider */}
-            <mesh position={[0, 0.1, 0]} castShadow receiveShadow>
-              <boxGeometry args={[2, 0.4, 0.1]} />
-              <primitive object={rimMaterial} />
-            </mesh>
-            <mesh position={[0, 0.1, 0]} rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
-              <boxGeometry args={[2, 0.4, 0.1]} />
-              <primitive object={rimMaterial} />
-            </mesh>
-
-            {/* Rim Border */}
-            <mesh position={[0, 0.1, 1]} castShadow receiveShadow>
-              <boxGeometry args={[2.2, 0.4, 0.1]} />
-              <primitive object={rimMaterial} />
-            </mesh>
-            <mesh position={[0, 0.1, -1]} castShadow receiveShadow>
-              <boxGeometry args={[2.2, 0.4, 0.1]} />
-              <primitive object={rimMaterial} />
-            </mesh>
-            <mesh position={[1, 0.1, 0]} rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
-              <boxGeometry args={[2.2, 0.4, 0.1]} />
-              <primitive object={rimMaterial} />
-            </mesh>
-            <mesh position={[-1, 0.1, 0]} rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
-              <boxGeometry args={[2.2, 0.4, 0.1]} />
-              <primitive object={rimMaterial} />
-            </mesh>
-          </group>
+        {/* Realistic Grid Dividers */}
+        <group position={[0, 0.15, 0]}>
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[2.2, 0.3, 0.05]} />
+            <meshStandardMaterial color="#d1fae5" roughness={0.3} />
+          </mesh>
+          <mesh rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
+            <boxGeometry args={[2.2, 0.3, 0.05]} />
+            <meshStandardMaterial color="#d1fae5" roughness={0.3} />
+          </mesh>
         </group>
 
-        {/* Open Lid */}
-        <group position={[0, 0.25, -1.1]} rotation={[-Math.PI / 1.5, 0, 0]}>
-          <group position={[0, 0, 1.1]}> {/* Pivot correction */}
-            <RoundedBox args={[2.2, 0.2, 2.2]} radius={0.1} smoothness={4} castShadow receiveShadow>
-              <primitive object={boxMaterial} />
-            </RoundedBox>
-            {/* Lid Interior Detail */}
-            <mesh position={[0, -0.11, 0]} receiveShadow>
-              <planeGeometry args={[2, 2]} />
-              <meshStandardMaterial color="#fff7ed" roughness={0.4} />
-            </mesh>
+        {/* Individual Realistic Lids with Hinges */}
+        {[
+          { pos: [-0.6, 0.35, -0.6], rot: -0.8 },
+          { pos: [0.6, 0.35, -0.6], rot: -0.2 },
+          { pos: [-0.6, 0.35, 0.6], rot: -0.5 },
+          { pos: [0.6, 0.35, 0.6], rot: 0 }
+        ].map((lid, idx) => (
+          <group key={idx} position={lid.pos} rotation={[lid.rot, 0, 0]}>
+            <group position={[0, 0, 0.55]}> {/* Lid Pivot */}
+              <RoundedBox args={[1.1, 0.08, 1.1]} radius={0.05} smoothness={4} castShadow>
+                <primitive object={boxMaterial} />
+              </RoundedBox>
+              {/* Small "Press" Tab */}
+              <mesh position={[0, -0.02, -0.5]} castShadow>
+                <boxGeometry args={[0.3, 0.05, 0.1]} />
+                <meshStandardMaterial color="#10b981" emissive="#10b981" emissiveIntensity={0.5} />
+              </mesh>
+            </group>
           </group>
-        </group>
+        ))}
 
         {/* Pills in Compartments */}
         <group position={[0, 0, 0]}>
@@ -322,11 +308,10 @@ function SceneContent() {
         height={15}
         intensity={10}
         position={[5, 2, 5]}
-        color="#fcd34d"
-        lookAt={() => new THREE.Vector3(0, 0, 0)}
+        color="#22c55e"
       />
       <pointLight position={[0, 2, 0]} intensity={15} color="#8b5cf6" />
-      <pointLight position={[-3, -2, 2]} intensity={10} color="#10b981" />
+      <pointLight position={[-3, -2, 2]} intensity={10} color="#22c55e" />
 
       <group position={isMobile ? [0, 1, 0] : [2, 0, 0]}>
         <Capsule
