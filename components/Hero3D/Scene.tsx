@@ -61,11 +61,11 @@ function Capsule({ position, rotation, scale }: { position: [number, number, num
         <mesh position={[0, -0.2, 0]} castShadow receiveShadow>
           <cylinderGeometry args={[1.02, 1.02, 0.1, 64]} />
           <meshPhysicalMaterial
-            color="#0ea5e9"
+            color="#fcd34d"
             {...materialProps}
-            roughness={0.1}
-            emissive="#0ea5e9"
-            emissiveIntensity={2}
+            roughness={0}
+            emissive="#fcd34d"
+            emissiveIntensity={4}
           />
         </mesh>
 
@@ -73,11 +73,11 @@ function Capsule({ position, rotation, scale }: { position: [number, number, num
         <group position={[0, -0.95, 0]}>
           <mesh position={[0, 0, 0]} castShadow receiveShadow>
             <cylinderGeometry args={[1, 1, 1.5, 64]} />
-            <meshPhysicalMaterial color="#0ea5e9" {...materialProps} />
+            <meshPhysicalMaterial color="#fcd34d" {...materialProps} />
           </mesh>
           <mesh position={[0, -0.75, 0]} rotation={[Math.PI, 0, 0]} castShadow receiveShadow>
             <sphereGeometry args={[1, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshPhysicalMaterial color="#0ea5e9" {...materialProps} />
+            <meshPhysicalMaterial color="#fcd34d" {...materialProps} />
           </mesh>
         </group>
       </Float>
@@ -318,14 +318,15 @@ function SceneContent() {
         angle={0.5}
       />
       <rectAreaLight
-        width={10}
-        height={10}
-        intensity={5}
-        position={[5, 0, 5]}
-        color="#0ea5e9"
+        width={15}
+        height={15}
+        intensity={10}
+        position={[5, 2, 5]}
+        color="#fcd34d"
         lookAt={() => new THREE.Vector3(0, 0, 0)}
       />
-      <pointLight position={[0, 2, 0]} intensity={10} color="#0ea5e9" />
+      <pointLight position={[0, 2, 0]} intensity={15} color="#8b5cf6" />
+      <pointLight position={[-3, -2, 2]} intensity={10} color="#10b981" />
 
       <group position={isMobile ? [0, 1, 0] : [2, 0, 0]}>
         <Capsule

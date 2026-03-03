@@ -31,7 +31,7 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="scroll-section border-t border-white/5 bg-slate-900/40 backdrop-blur-3xl"
+      className="scroll-section border-t border-amber-400/10 bg-gradient-to-b from-[#0c0a1f] to-[#1e1b4b] py-20"
       aria-labelledby="how-heading"
     >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20 sm:px-6 lg:px-8">
@@ -42,12 +42,12 @@ export function HowItWorks() {
             </p>
             <h2
               id="how-heading"
-              className="mt-3 sm:mt-4 font-heading text-3xl font-black text-white sm:text-4xl lg:text-6xl tracking-tight"
+              className="mt-3 sm:mt-4 font-heading text-4xl font-black text-white sm:text-5xl lg:text-7xl tracking-tighter drop-shadow-xl"
             >
-              Quantum Logistics
+              Elite Delivery
             </h2>
-            <p className="mt-4 text-slate-400 max-w-2xl mx-auto text-base sm:text-lg font-medium">
-              Seamless synchronization from Lucknow&apos;s hubs to your coordinates.
+            <p className="mt-4 text-slate-300 max-w-2xl mx-auto text-lg sm:text-xl font-bold italic opacity-90">
+              Your health, our priority. Experience the gold standard of pharmaceutical logistics.
             </p>
           </div>
         </ScrollReveal>
@@ -56,7 +56,7 @@ export function HowItWorks() {
           {steps.map((step, index) => (
             <ScrollReveal key={step.title} delay={index * 0.2} animation="fade-up" duration={0.8}>
               <article className="card-3d group h-full">
-                <div className="card-3d-inner bg-slate-900/60 backdrop-blur-xl relative h-full p-8 transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_0_30px_rgba(14,165,233,0.1)] border border-white/10 rounded-[2rem]">
+                <div className="card-3d-inner bg-slate-900/80 backdrop-blur-2xl relative h-full p-10 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[0_0_50px_rgba(252,211,77,0.2)] border border-amber-400/20 rounded-[2.5rem]">
                   {index < steps.length - 1 && (
                     <div className="timeline-connector hidden md:block opacity-50" aria-hidden="true" />
                   )}

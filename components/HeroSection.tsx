@@ -15,21 +15,21 @@ export function HeroSection() {
             <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
               <ScrollReveal>
                 <div className="space-y-6 sm:space-y-8">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1.5 text-xs font-bold text-sky-400 backdrop-blur-md shadow-[0_0_15px_rgba(14,165,233,0.2)]">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-400/10 px-4 py-1.5 text-xs font-black text-amber-400 backdrop-blur-md shadow-[0_0_20px_rgba(252,211,77,0.2)]">
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500"></span>
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
                     </span>
-                    <span className="tracking-widest uppercase">Quantum Link: Domariyaganj</span>
+                    <span className="tracking-[0.2em] uppercase">Premium Link: Lucknow → Domariyaganj</span>
                   </div>
 
                   <h1
                     id="hero-heading"
-                    className="font-heading text-4xl sm:text-6xl lg:text-8xl font-black leading-[0.95] tracking-tighter text-white"
+                    className="font-heading text-5xl sm:text-7xl lg:text-9xl font-black leading-[0.9] tracking-tighter text-white drop-shadow-2xl"
                   >
-                    Next-Gen
-                    <span className="mt-2 block bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(14,165,233,0.3)]">
-                      Medical Delivery.
+                    Luxurious
+                    <span className="mt-2 block bg-gradient-to-r from-amber-400 via-emerald-400 to-violet-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(252,211,77,0.4)]">
+                      Care. Delivered.
                     </span>
                   </h1>
 
@@ -39,9 +39,9 @@ export function HeroSection() {
                   </p>
 
                   <div className="flex flex-col gap-5 pt-4 sm:flex-row sm:items-center sm:pt-6">
-                    <Link href="/upload-prescription" className="button-primary group relative overflow-hidden text-base px-10 py-4 shadow-[0_0_20px_#0ea5e966] transition-all hover:scale-105 hover:shadow-[0_0_35px_#0ea5e999]">
-                      <span className="relative z-10 font-bold tracking-tight">Access Quantum Portal</span>
-                      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/30 to-white/0 transition-transform duration-700 group-hover:animate-shimmer" />
+                    <Link href="/upload-prescription" className="button-primary group relative overflow-hidden text-base px-10 py-5 shadow-[0_0_30px_rgba(252,211,77,0.3)] transition-all hover:scale-105 hover:shadow-[0_0_50px_rgba(252,211,77,0.5)] !bg-gradient-to-r from-amber-400 to-emerald-500 text-slate-900 border-none">
+                      <span className="relative z-10 font-black tracking-tight uppercase">Upload Prescription Now</span>
+                      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/50 to-white/0 transition-transform duration-700 group-hover:animate-shimmer" />
                     </Link>
                     <Link href="https://wa.me/918601439557" className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-bold transition-all hover:bg-white/10 hover:border-sky-500/50">
                       <span className="text-xl group-hover:animate-bounce-slow">💬</span>
@@ -133,13 +133,13 @@ export function HeroSection() {
                             </div>
                           </div>
 
-                          <div className="rounded-2xl bg-sky-500/10 p-3 border border-sky-500/20 backdrop-blur-sm">
+                          <div className="rounded-2xl bg-amber-400/10 p-4 border border-amber-400/30 backdrop-blur-sm">
                             <div className="flex justify-between items-end">
                               <div>
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-sky-300">Total Credits</p>
-                                <p className="text-lg font-black text-white">₹929.00</p>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-amber-300">Total Premium Credits</p>
+                                <p className="text-xl font-black text-white">₹929.00</p>
                               </div>
-                              <div className="h-6 w-6 rounded-lg bg-sky-500 flex items-center justify-center text-[10px] text-white shadow-[0_0_10px_#0ea5e9]">✓</div>
+                              <div className="h-8 w-8 rounded-lg bg-amber-400 flex items-center justify-center text-xs text-slate-900 font-bold shadow-[0_0_20px_#fcd34d]">✓</div>
                             </div>
                           </div>
                         </div>

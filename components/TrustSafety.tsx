@@ -22,7 +22,7 @@ export function TrustSafety() {
   return (
     <section
       id="trust"
-      className="scroll-section border-t border-white/5 bg-slate-900/60 backdrop-blur-3xl"
+      className="scroll-section border-t border-amber-400/10 bg-gradient-to-b from-[#1e1b4b] to-[#0c0a1f] py-20"
       aria-labelledby="trust-heading"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:py-20 sm:px-6 lg:px-8">
@@ -35,12 +35,12 @@ export function TrustSafety() {
                 </p>
                 <h2
                   id="trust-heading"
-                  className="mt-3 sm:mt-4 font-heading text-3xl font-black text-white sm:text-4xl lg:text-6xl tracking-tight"
+                  className="mt-3 sm:mt-4 font-heading text-4xl font-black text-white sm:text-5xl lg:text-7xl tracking-tighter drop-shadow-xl"
                 >
-                  Neural Trust Protocol
+                  Uncompromising Trust
                 </h2>
-                <p className="mt-4 text-base sm:text-lg text-slate-300 font-medium leading-relaxed">
-                  Encryption for your health. Every unit is verified through our proprietary Lucknow security grid.
+                <p className="mt-4 text-lg sm:text-xl text-amber-200/90 font-bold leading-relaxed italic">
+                  Sourcing only from authorized pharmaceutical distributors. We never compromise on quality.
                 </p>
               </div>
 
@@ -56,8 +56,8 @@ export function TrustSafety() {
                   >
                     <CheckCircle2 size={32} strokeWidth={1.5} />
                   </motion.div>
-                  <h3 className="font-bold text-lg text-white">Verified Nodes</h3>
-                  <p className="mt-2 text-sm text-slate-400 font-medium">Synced with top-tier licensed pharmaceutical hubs in LKO.</p>
+                  <h3 className="font-black text-xl text-white tracking-tight">Verified Sourcing</h3>
+                  <p className="mt-2 text-base text-slate-300 font-bold opacity-80">Directly procured from Lucknow’s most elite pharmaceutical hubs.</p>
                 </motion.div>
                 <motion.div
                   className="bg-slate-900/80 backdrop-blur-xl p-6 group border border-white/10 rounded-3xl"
@@ -70,8 +70,8 @@ export function TrustSafety() {
                   >
                     <ShieldCheck size={32} strokeWidth={1.5} />
                   </motion.div>
-                  <h3 className="font-bold text-lg text-white">Quantum Purity</h3>
-                  <p className="mt-2 text-sm text-slate-400 font-medium">Direct sourcing. Zero tampering. Absolute integrity.</p>
+                  <h3 className="font-black text-xl text-white tracking-tight">Golden Standard</h3>
+                  <p className="mt-2 text-base text-slate-300 font-bold opacity-80">Absolute integrity. Zero compromises. Pure medicine.</p>
                 </motion.div>
               </div>
 

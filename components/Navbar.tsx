@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 
 const themes = [
   { id: "default", label: "Default" },
-  { id: "quantum", label: "Quantum Cyber" },
+  { id: "lux", label: "Super Lux" },
   { id: "classic", label: "Classic B&W" },
   { id: "liam", label: "Liam Green" }
 ];
@@ -46,11 +46,10 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-7xl transition-all duration-500 rounded-3xl border ${
-          scrolled
-            ? "border-white/10 bg-slate-900/40 backdrop-blur-2xl py-3 shadow-[0_0_30px_rgba(0,0,0,0.3)]"
-            : "border-white/5 bg-white/5 backdrop-blur-md py-4 sm:py-5"
-        }`}
+        className={`fixed top-4 left-0 right-0 mx-auto z-40 w-[92%] max-w-7xl transition-all duration-500 rounded-3xl border ${scrolled
+            ? "border-amber-400/20 bg-slate-900/60 backdrop-blur-2xl py-3 shadow-[0_0_40px_rgba(252,211,77,0.15)]"
+            : "border-white/10 bg-white/5 backdrop-blur-md py-4 sm:py-5"
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -60,37 +59,37 @@ export function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
-              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-med-primary to-med-emerald text-white shadow-[0_0_15px_rgba(42,127,255,0.4)]"
+              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 via-emerald-500 to-violet-500 text-white shadow-[0_0_20px_rgba(252,211,77,0.4)]"
             >
-              <span className="text-xl font-bold">M</span>
+              <span className="text-xl font-black">M</span>
             </motion.div>
             <div className="flex flex-col">
-              <span className="font-heading text-xl font-bold tracking-tight text-white leading-tight drop-shadow-sm">
+              <span className="font-heading text-xl font-black tracking-tight text-white leading-tight drop-shadow-md">
                 MedExpress
               </span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-med-primary animate-pulse">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-400 animate-pulse">
                 Domariyaganj
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden items-center gap-8 text-sm font-bold text-white/80 md:flex">
-            <Link href="/#how-it-works" className="relative group hover:text-med-primary transition-all duration-300">
+          <nav className="hidden items-center gap-8 text-sm font-bold text-white/90 md:flex">
+            <Link href="/#how-it-works" className="relative group hover:text-amber-400 transition-all duration-300">
               <span className="relative z-10">How it works</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
             </Link>
-            <Link href="/upload-prescription" className="relative group hover:text-med-primary transition-all duration-300">
+            <Link href="/upload-prescription" className="relative group hover:text-amber-400 transition-all duration-300">
               <span className="relative z-10">Upload Prescription</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
             </Link>
-            <Link href="/track-order" className="relative group hover:text-med-primary transition-all duration-300">
+            <Link href="/track-order" className="relative group hover:text-amber-400 transition-all duration-300">
               <span className="relative z-10">Track Order</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
             </Link>
-            <Link href="/admin" className="relative group hover:text-med-primary transition-all duration-300">
+            <Link href="/admin" className="relative group hover:text-amber-400 transition-all duration-300">
               <span className="relative z-10">Admin</span>
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-med-primary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_#2a7fff]" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-amber-400 transition-all duration-300 group-hover:w-full shadow-[0_0_15px_#fcd34d]" />
             </Link>
           </nav>
 
@@ -104,15 +103,15 @@ export function Navbar() {
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
               +91 86014 39557
             </a>
-          <button
-            type="button"
-            onClick={cycleTheme}
-            className="hidden items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold transition-colors sm:flex theme-toggle"
-            aria-label={`Switch theme. Current theme: ${currentTheme.label}`}
-          >
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: "var(--theme-accent)" }} />
-            {currentTheme.label}
-          </button>
+            <button
+              type="button"
+              onClick={cycleTheme}
+              className="hidden items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold transition-colors sm:flex theme-toggle"
+              aria-label={`Switch theme. Current theme: ${currentTheme.label}`}
+            >
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: "var(--theme-accent)" }} />
+              {currentTheme.label}
+            </button>
             <Link href="/upload-prescription" className="hidden sm:block">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -122,9 +121,9 @@ export function Navbar() {
                 Upload Now
               </motion.button>
             </Link>
-            
+
             {/* Mobile Menu Button */}
-            <button 
+            <button
               onClick={toggleMenu}
               className="flex h-10 w-10 items-center justify-center rounded-full bg-white/50 text-slate-900 md:hidden hover:bg-white"
               aria-label="Toggle menu"
@@ -180,7 +179,7 @@ export function Navbar() {
                 <span className="text-xs">{currentTheme.label}</span>
               </button>
               <Link href="/upload-prescription" onClick={toggleMenu} className="mt-2 px-4">
-                <motion.button 
+                <motion.button
                   whileTap={{ scale: 0.98 }}
                   className="w-full rounded-2xl bg-slate-900 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-slate-800 transition-colors"
                 >
