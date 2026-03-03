@@ -165,7 +165,7 @@ function PillBox() {
           { pos: [-0.6, 0.35, 0.6], rot: -0.5 },
           { pos: [0.6, 0.35, 0.6], rot: 0 }
         ].map((lid, idx) => (
-          <group key={idx} position={lid.pos} rotation={[lid.rot, 0, 0]}>
+          <group key={idx} position={new THREE.Vector3(...lid.pos)} rotation={[lid.rot, 0, 0]}>
             <group position={[0, 0, 0.55]}> {/* Lid Pivot */}
               <RoundedBox args={[1.1, 0.08, 1.1]} radius={0.05} smoothness={4} castShadow>
                 <primitive object={boxMaterial} />
@@ -307,7 +307,7 @@ function SceneContent() {
         width={15}
         height={15}
         intensity={10}
-        position={[5, 2, 5]}
+        position={new THREE.Vector3(5, 2, 5)}
         color="#22c55e"
       />
       <pointLight position={[0, 2, 0]} intensity={15} color="#8b5cf6" />
